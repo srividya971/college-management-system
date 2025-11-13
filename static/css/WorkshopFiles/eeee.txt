@@ -1,0 +1,40 @@
+Title: Electronic Waste Management
+Modules:
+Admin:
+Login: Admin can login into website by entering their credentials.
+View & Approve company: Here admin can approve the companies.
+View Customers: admin can view registered customers.
+view Delivery boys: here admin can view the registered delivery boys.
+
+Company:
+register: Company can register into website by entering their details.
+Login: he can login into website entering their credentials.(after admin approval)
+Add Employees : here Company can add the employees for checking the products.
+View requests: here company can view the requests from the users and he assign one employee for this, and he can update the status.
+
+
+
+Employees:
+Login: he can login into website entering their credentials.
+view and accept Work:he can view and accept work from company.
+Update status: he can verify products and he update the status.
+
+
+Customer: 
+Register: Here Customer can register into website by entering their details.
+Login:he can login into website entering their credentials.
+View comapanies: he can view the companies.
+upload product :here can upload product and give some description about the products and he can also select the company and make request to that company.
+view status: customer can view the status of their products.
+
+
+Logout: All can logout after completion of their operations.
+
+Software Requirements:
+Domain:Python/PHP
+
+Deadline:Aug 20
+
+Working Hours: 50hrs
+
+

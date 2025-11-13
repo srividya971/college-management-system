@@ -1,0 +1,80 @@
+          Hybrid Recommender System for Tourism 
+
+### User Modules
+
+1. **Register**
+   - Allow users to sign up for the application by providing necessary details.
+   
+
+2. **Login**
+   - Authenticate users using their credentials to access the application.
+   
+
+3. **View All Users**
+   - Display a list of all registered users within the application.
+   - Provide options to follow other users from the list.
+
+4. **Follow Users**
+   - Enable users to follow other users in the application.
+  .
+
+5. **View Following**
+   - Show the list of users that the current user is following.
+   - Provide an interface to manage (unfollow) these connections.
+
+6. **View Followers**
+   - Display the list of users who are following the current user.
+   
+
+7. **Chat with Following Users**
+   - Facilitate real-time messaging between users who follow each other.
+   
+
+8. **Add New Tweet**
+   - Allow users to post new tweets, sharing their visit palce.
+
+
+9. **View Tweets**
+    - view the user post tweets
+
+10. **Give Rating to a Place**
+     - give the rating particular place
+
+11. **Show Recommended Places**
+    - Display a list of recommended places based on user ratings.
+   
+
+### Admin Modules
+
+1. **Login**
+   - Authenticate the admin to access the administrative panel.
+   - Ensure secure access to sensitive operations.
+
+2. **View Users**
+   - Provide a comprehensive list of all users registered in the application.
+   - Allow the admin to view user details and activities.
+
+3. **CRUD on Places**
+   - Enable the admin to Create, Read, Update, and Delete places in the application.
+   - Manage place details and ensure the information is up-to-date.
+
+4. **View Ratings**
+   - Display all ratings given by users for different places.
+   - Analyze rating trends and user feedback.
+
+5. **View Graphs of Positive and Negative Tweets**
+   - Generate and display visual graphs showing the distribution of positive and negative tweets.
+
+
+6. **View Tweets**
+   - Provide a module to view all tweets posted by users.
+  
+for recommendation
+1. sentiment classifications: BERT model
+2. Recommendation: Hybrid model
+software requirements
+front end : React
+backend: python
+Database: SQL
+
+  

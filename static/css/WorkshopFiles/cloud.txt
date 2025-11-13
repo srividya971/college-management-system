@@ -1,0 +1,32 @@
+Title:Revolutionizing Cloud Data Security with Elliptic Curve Cryptography
+Modules: 
+Data Owner: 
+Register: Data owner can register into website by entering details.
+Login: He can login into website by entering their credentials.(after admin authorized)
+upload files: Here he can upload their files into website and he can encrypt that file using ECC.
+view files: here he can view their files.
+view file request: Here Owner can view his file requests and decrypt the file.
+
+Data User:
+Register: Data user can register into website by entering details.
+Login: He can login into website by entering their credentials.(after admin authorized)
+view files : He can view the file and send a file request to data owner.
+view response: here he can view the requested file response.
+download file: he can download the file by using the key.
+
+Cloud :
+Login: He can login into website by entering their credentials.
+view and authorize data owners: here admin can view the registered data owners and he can authorize and unauthorize the data owners.
+view and authorize data users: here admin can view the registered data users and he can authorize and unauthorize the data users.
+send key: Here admin can send a key through email for downloading the file.
+view file treansactions: here user can view the file transactions.
+
+Software Requirements:
+Domain: Cloud
+front end: Html, Css, JS
+Backend : Django
+Database: Sqlite
+
+Project Type: New
+
+Working  hours: 40

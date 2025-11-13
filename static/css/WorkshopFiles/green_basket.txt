@@ -1,0 +1,23 @@
+Admin Module: login: he can log on to website by entering details
+Authorize customers and farmers: he can allow the Authorize customers and farmers
+view the products: he can view the products 
+view feedbacks: he can view the feedbacks All can logout after completed their operations
+
+Delivery Boy Module: Login : He can login on to website by entering details 
+view orders and accept it : he can view the orders and accept it 
+deliver the products: he can deliver the products
+
+Customer Module: register: customers can register by entering details 
+login: he can log on to website after the admin authorization 
+view products : he can view products
+add to cart : he can add the products into cart 
+order the products: he can order the products 
+view orders and cancel orders: he can view the orders and cancel the orders before delivered 
+give feedback and report issues: he can give feedback and report issues about the product and delivery
+
+Farmers: Register : Farmers can register into website by entering details 
+Login : farmers can log on to website after the admin authorization 
+Add and Manage products : farmers can add ,delete, view and update the products 
+view orders and status of an orders: he can view orders and status of an orders 
+view feedbacks and resolve issues: he can view feedbacks and resolve issues 
+add and remove delivery boys: he can add and remove delivery boys
