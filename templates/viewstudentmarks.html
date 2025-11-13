@@ -1,0 +1,269 @@
+{% extends "home.html" %}
+{% block title %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Entry</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #9ecbf0;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .form-group label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        .search-btn, .update-btn, .post-btn {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .search-btn:hover, .update-btn:hover, .post-btn:hover {
+            background-color: #357abd;
+        }
+        .student-list {
+            margin-top: 20px;
+        }
+        .student-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-list table, th, td {
+            border: 1px solid #e0e0e0;
+        }
+        .student-list th, .student-list td {
+            padding: 14px;
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+        }
+        .student-list th {
+            background-color: #2a5e92;
+            font-weight: 500;
+            color: white;
+        }
+        .student-list td {
+            background-color: #fcfcfc;
+        }
+        .action-btns {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button, .pagination span {
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .pagination button:hover {
+            background-color: #2575fc;
+        }
+
+        .pagination span {
+            background-color: #f4f4f4;
+            color: #6a11cb;
+            cursor: default;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Students</h1>
+        
+        <form class="search-form" action="{% url 'viewstudentmarks' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <select name="dept" required>
+                    <option value="" disabled selected>Select Department</option>
+                    <option value="cse">Computer Science and Engineering (CSE)</option>
+                    <option value="civil">Civil Engineering</option>
+                    <option value="mech">Mechanical Engineering</option>
+                    <option value="eee">Electrical and Electronics Engineering (EEE)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select name="semester" required>
+                    <option value="" disabled selected>Select Semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select name="subject" required>
+                    <option value="" disabled selected>Select Subject</option>
+                    {% for designation in sub %}
+                    <option value="{{designation}}">{{designation}}</option>
+                    
+                   {% endfor %}
+                </select>
+            </div> 
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </div>
+
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <center><p class="alert alert-success">{{ message }}</p></center>
+        {% endfor %}
+        {% endif %}
+
+        <h1>View Student Marks</h1>
+       
+        {% if subj %}
+        <p style="color: black; font-size: larger ;">Subject : {{subj}}</p>
+        {% endif %}
+        {% if data %}
+        <div class="student-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Roll ID</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <th>Subject</th>
+                        <th>Test-1</th>
+                        <th>Test-2</th>
+                        <th>Midterm</th>
+                        <th>Final</th>
+                        {% if login == 'faculty' %}
+                        <th>Action</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in data %}
+                    <tr>
+                        <td>{{ student.firstname }}</td>
+                        <td>{{ student.lastname }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.rollid }}</td>
+                        <td>{{ student.dept }}</td>
+                        <td>{{ student.sem }}</td>
+                        <td>{{ student.subject }}</td>
+                        <td>{{ student.test1 }}</td>
+                        <td>{{ student.test2 }}</td>
+                        <td>{{ student.mid }}</td>
+                        <td>{{ student.finalsem }}</td>
+
+                        {% if login == 'faculty' %}   
+                        <td>
+                            
+                            <div class="action-button">
+                              <a href="{% url 'updatemarks' student.rollid %}">  <button type="submit" name="action" value="update" class="update-btn" style="margin-right: 5px;">Update </button></a>
+                             
+                            </div>
+                          
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1"><button>First</button></a>
+                <a href="?page={{ page_obj.previous_page_number }}"><button>Previous</button></a>
+            {% else %}
+                <span>First</span>
+                <span>Previous</span>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span>{{ num }}</span>
+                {% else %}
+                    <a href="?page={{ num }}"><button>{{ num }}</button></a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"><button>Next</button></a>
+                <a href="?page={{ page_obj.paginator.num_pages }}"><button>Last</button></a>
+            {% else %}
+                <span>Next</span>
+                <span>Last</span>
+            {% endif %}
+        </div>
+        {% else %}
+        <center><p>No data available.</p></center>
+        {% endif %}
+    </div>
+</body>
+
+{% endblock %}

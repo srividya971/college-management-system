@@ -1,0 +1,106 @@
+{% extends "home.html" %}
+
+{% block title %}
+
+        <!-- Page Header End -->
+        <div class="container-xxl py-5 page-header position-relative mb-5" style="background-image: url('/static/img/a.jpg'); background-size: cover; background-position: center;height: 500px;">
+            <div class="container py-5">
+                <h1 class="display-2 text-white animated slideInDown mb-4">Workshops</h1>
+                <nav aria-label="breadcrumb animated slideInDown">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Classes</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header End -->
+
+
+        <!-- Classes Start -->
+        <div class="container-xxl py-5">
+            {% if messages %}
+            {% for message in messages %}
+            <center><p class="alert alert-success">{{ message }}</p></center>
+            {% endfor %}
+            {% endif %}
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 1000px;">
+                    <h1 class="mb-4">Workshops</h1>
+                    <p>Workshops are dynamic sessions that inspire growth and skill enhancement, offering hands-on learning and collaboration led by experts. They empower participants to achieve their goals through practical, motivated engagement.</p>
+                </div>
+                <div class="row g-4">
+                    {% for i in data %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="classes-item">
+                            <div class="bg-light rounded-circle w-75 mx-auto p-3" style="width: 150px; height: 250px;">
+                                <img class="img-fluid rounded-circle" src="/{{i.workshopimage}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div class="bg-light rounded p-4 pt-5 mt-n5">
+                                <a class="d-block text-center h3 mt-3 mb-4" href="">{{i.workshopname}}</a>
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle flex-shrink-0" src="/static/img/user.jpg" alt="" style="width: 45px; height: 45px;">
+                                        <div class="ms-3">
+                                            <h6 class="text-primary mb-1">Post By</h6>
+                                            <small>Admin</small>
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'downloadfile' i.id %}" class="btn btn-primary rounded-pill py-2 px-3" role="button">Download File</a>
+                                </div>
+                                <div class="row g-1">
+                                    <div class="col-4">
+                                        <div class="border-top border-3 border-primary pt-2">
+                                            <h6 class="text-primary mb-1">Department:</h6>
+                                            <strong>{{i.dept}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="border-top border-3 border-success pt-2">
+                                            <h6 class="text-success mb-1">Semester</h6>
+                                            <strong>{{i.sem}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="border-top border-3 border-warning pt-2">
+                                            <h6 class="text-warning mb-1">Uploaded Date:</h6>
+                                            <strong>{{ i.workshopdate|date:"Y-m-d" }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if login == 'admin' %}
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a href="{% url 'updateworkshop' i.id %}" class="btn btn-warning rounded-pill py-1 px-2" role="button" style="font-size: 14px; margin-right: 10px;">Update Workshop</a>
+                                    <a href="{% url 'removeworkshop' i.id %}" class="btn btn-danger rounded-pill py-1 px-2" role="button" style="font-size: 14px;">Remove Workshop</a>
+                                </div>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+               
+            </div>
+        </div>
+        {% if login == 'admin' %}
+        <center>
+        <a href="{% url 'addworkshop' %}" 
+        style="
+            display: inline-block; 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            color: #fff; 
+            background-color: #22cf56; 
+            text-align: center; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            border: 1px solid ;
+            transition: background-color 0.3s, border-color 0.3s; 
+            margin-bottom: 20px;
+        ">
+        Add Workshops
+     </a>
+    </center>
+    {% endif %}
+{% endblock %}

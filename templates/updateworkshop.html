@@ -1,0 +1,146 @@
+{% extends "home.html" %}
+
+{% block title %}
+
+        
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Workshop</title>
+ 
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            
+            margin: 0;
+            padding: 0;
+        }
+        .contain
+        {
+            background: url('/static/img/s11.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 140vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #6a11cb;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-control-file {
+            border: none;
+        }
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #6a11cb;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #69aaf0;
+        }
+        .form-group img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+        .file-upload {
+            border: 1px solid #ced4da;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="contain">
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <center><p class="alert alert-success">{{ message }}</p></center>
+        {% endfor %}
+        {% endif %}
+        <h2>Update Workshop</h2>
+ 
+        <form action="{% url 'updateworkshop' id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="workshopName">Workshop Name:</label>
+                <input type="text" class="form-control" id="workshopName" name="workshopName" placeholder="Enter workshop name" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Select Department:</label>
+                <select class="form-control" id="department" name="dept" required>
+                    <option value="" disabled selected>Select department</option>
+                    <option value="cse">Computer Science and Engineering (CSE)</option>
+                <option value="civil">Civil Engineering</option>
+                <option value="mech">Mechanical Engineering</option>
+                <option value="eee">Electrical and Electronics Engineering (EEE)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semester">Select Semester:</label>
+                <select class="form-control" id="semester" name="sem" required>
+                    <option value="" disabled selected>Select semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="form-group file-upload">
+                <label for="workshopImage">Workshop Image:</label>
+                <input type="file" class="form-control-file" id="workshopImage" name="workshopImage" accept="image/*" required>
+            </div>
+            <div class="form-group file-upload">
+                <label for="file">Attach File:</label>
+                <input type="file" class="form-control-file" id="file" name="file" accept=".txt,.pdf,.doc,.docx" required>
+            </div>
+            <button type="submit" class="btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,204 @@
+{% extends "home.html" %}
+{% block title %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Entry</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #9ecbf0;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .form-group label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        .search-btn, .update-btn, .post-btn {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .search-btn:hover, .update-btn:hover, .post-btn:hover {
+            background-color: #357abd;
+        }
+        .student-list {
+            margin-top: 20px;
+        }
+        .student-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-list table, th, td {
+            border: 1px solid #e0e0e0;
+        }
+        .student-list th, .student-list td {
+            padding: 14px;
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+        }
+        .student-list th {
+            background-color: #2a5e92;
+            font-weight: 500;
+            color: white;
+        }
+        .student-list td {
+            background-color: #fcfcfc;
+        }
+        .action-btns {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Students</h1>
+        
+        <form class="search-form" action="{% url 'marks' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <select name="dept" required>
+                    <option value="" disabled selected>Select Department</option>
+                    <option value="cse">Computer Science and Engineering (CSE)</option>
+                    <option value="civil">Civil Engineering</option>
+                    <option value="mech">Mechanical Engineering</option>
+                    <option value="eee">Electrical and Electronics Engineering (EEE)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select name="semester" required>
+                    <option value="" disabled selected>Select Semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </div>
+
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <center><p class="alert alert-success">{{ message }}</p></center>
+        {% endfor %}
+        {% endif %}
+
+        <h1>Enter Marks</h1>
+        <div style="text-align: right; margin-bottom: 20px; margin-top:-30px;">
+            <a href="{% url 'viewstudentmarks' %}">
+                <button style="background-color: #1162cb; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; transition: background 0.3s ease;">
+                    View Marks
+                </button>
+            </a>
+        </div>
+        {% if sub %}
+        <p style="color: black; font-size: larger ;">Subject : {{sub}}</p>
+        {% endif %}
+        {% if data %}
+        <div class="student-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <!-- <th>Marks Status</th> -->
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in data %}
+                    <tr>
+                        <td>{{ student.rollid }}</td>
+                        <td>{{ student.firstname }}</td>
+                        <td>{{ student.lastname }}</td>
+                        <td>{{ student.dept }}</td>
+                        <td>{{ student.sem }}</td>
+                            <!-- <td>{{student.marks}}</td> -->
+                            <td>
+                                
+                                <!-- {%if  student.marks == 'Posted' %}
+                                  <a href="{% url 'viewmarks' student.rollid %}">  <button type="submit" name="action" value="update" class="update-btn" style="margin-right: 5px;">View Marks </button></a>
+                                  
+                                  <a href="{% url 'updatemarks' student.rollid %}">  <button type="submit" name="action" value="update" class="update-btn" style="margin-right: 5px;">Update Marks</button></a> -->
+                                  {% comment %} {% else %} {% endcomment %}
+                                  <!-- {% elif student.marks != 'Posted' %} -->
+                                  <a href="{% url 'uploadmarks' student.rollid %}"><button type="submit" name="action" value="post" class="post-btn" >Post Marks </button></a>
+                                  <!-- {% endif %} -->
+                                  
+                              
+                            </td>
+                  
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <center><p>No data available.</p></center>
+        {% endif %}
+    </div>
+</body>
+
+{% endblock %}

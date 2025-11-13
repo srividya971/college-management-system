@@ -1,0 +1,116 @@
+{% extends "home.html" %}
+{% block title %}
+
+<div class="container mt-5" >
+    <center> <h1>Your Profile</h1></center> 
+       <br>  
+    <div class="row justify-content-center">
+       
+        <div class="col-md-11">
+            
+            <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+                <div class="row no-gutters">
+                    {% for i in data %}
+                    <!-- Left Side: Profile Picture -->
+                    <div class="col-md-4 bg-primary text-center d-flex align-items-center justify-content-center p-0">
+                        <div class="profile-pic" style="width: 420px; height: 475px; border-radius: 0%; overflow: hidden; border: 5px solid #fff;">
+                            <img src="/{{i.profile}}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side: Profile Details -->
+                    <div class="col-md-7">
+                        <div class="card-body p-5">
+                            <h2 class="card-title text-primary mb-3">{{i.firstname}} {{i.lastname}}</h2>
+                            <p class="card-text text-muted">{{i.desc}}</p>
+                            
+                            <hr>
+                            
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <h6 class="text-primary">Address:</h6>
+                                    <p class="text-muted">{{i.address}}</p>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class="text-primary">Email:</h6>
+                                    <p class="text-muted">{{i.email}}</p>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class="text-primary">Department:</h6>
+                                    <p class="text-muted">{{i.dept}}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6 class="text-primary">Phone:</h6>
+                                    <p class="text-muted">{{i.contact}}</p>
+                                </div>
+                                {% if login == 'student' %}
+                                <div class="col-4">
+                                    <h6 class="text-primary">Semester:</h6>
+                                    <p class="text-muted">{{i.sem}}</p>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class="text-primary">Roll ID:</h6>
+                                    <p class="text-muted">{{i.rollid}}</p>
+                                </div>
+                                {% else %}
+                                <div class="col-4">
+                                    <h6 class="text-primary">Designation:</h6>
+                                    <p class="text-muted">{{i.designation}}</p>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class="text-primary">Employee ID:</h6>
+                                    <p class="text-muted">{{i.empid}}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            <div class="mt-4 d-flex">
+                                <a href="{% url 'updatestudentprofile' %}" class="btn btn-success me-3 px-4 py-2">Update Profile</a>
+                                {% comment %} <a href="#" class="btn btn-outline-secondary px-4 py-2">Message</a> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add the following styles for additional styling -->
+<style>
+    .card {
+        background-color: #f8f9fa;
+    }
+
+    .card-title {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .btn-outline-secondary {
+        border-color: #6c757d;
+        color: #6c757d;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: #fff;
+    }
+</style>
+
+{% endblock %}

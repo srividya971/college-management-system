@@ -1,0 +1,107 @@
+{% extends "index.html" %}
+{% block title %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            {% comment %} font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; {% endcomment %}
+        }
+
+        .cont {
+            /* padding: 20px; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: url('/static/img/f1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 90vh;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .login-container input[type="email"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background: #6a11cb;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: inherit;
+        }
+
+        .login-container input[type="submit"]:hover {
+            background: #2575fc;
+        }
+
+        .login-container p {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-container a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="cont">
+<div class="login-container">
+    {% if messages %}
+    {% for message in messages %}
+    <center><p class="alert alert-danger">{{ message }}</p></center>
+    {% endfor %}
+    {% endif %}
+    <h2>Faculty Login</h2>
+    <form action="{% url 'facultylogin' %}" method="post">
+        {% csrf_token %}
+
+        <input type="email" name="email" placeholder="email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+    <p> <a href="{% url 'forgotpassword' %}">Forgot Password?</a></p>
+</div>
+</div>
+</body>
+{% endblock %}

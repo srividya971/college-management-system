@@ -1,0 +1,189 @@
+{% extends "home.html" %}
+
+{% block title %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Details</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .cont {
+            background: url('/static/img/c4.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -35px;
+        }
+
+        .containr {
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #6a11cb;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #6a11cb;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: #2575fc;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button, .pagination span {
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .pagination button:hover {
+            background-color: #2575fc;
+        }
+
+        .pagination span {
+            background-color: #f4f4f4;
+            color: #6a11cb;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <div class="containr">
+            <h2>Faculty Details</h2>
+            <div style="text-align: right; margin-bottom: 20px; margin-top:-30px;">
+                <a href="{% url 'facultyregister' %}">
+                    <button style="background-color: #6a11cb; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; transition: background 0.3s ease;">
+                        Add New Faculty
+                    </button>
+                </a>
+            </div>
+            <table>
+                <thead style="text-align: center;">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Employee ID</th>
+                        <th>Designation</th>
+                        <th>Address</th>
+                        <th>Department</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for faculty in page_obj %}
+                    <tr>
+                        <td>{{ faculty.firstname }}</td>
+                        <td>{{ faculty.lastname }}</td>
+                        <td>{{ faculty.email }}</td>
+                        <td>{{ faculty.contact }}</td>
+                        <td>{{ faculty.empid }}</td>
+                        <td>{{ faculty.designation }}</td>
+                        <td>{{ faculty.address }}</td>
+                        <td>{{ faculty.dept }}</td>
+                        <td class="action-buttons">
+                            {% comment %} <a href="{% url 'updatefaculty' faculty.id %}"><button>Update</button></a> {% endcomment %}
+                            <a href="{% url 'removefaculty' faculty.id %}"><button>Remove</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1"><button>First</button></a>
+                    <a href="?page={{ page_obj.previous_page_number }}"><button>Previous</button></a>
+                {% else %}
+                    <span>First</span>
+                    <span>Previous</span>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span>{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}"><button>{{ num }}</button></a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"><button>Next</button></a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}"><button>Last</button></a>
+                {% else %}
+                    <span>Next</span>
+                    <span>Last</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
